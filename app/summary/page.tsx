@@ -108,7 +108,7 @@ const SummaryPage = () => {
         </div>
       </main>
       <div className="flex justify-center text-center text-white py-8">
-        O EstudAI já gerou 
+        O Gabarita A.I. já gerou 
         <div className="mx-1.5 text-yellow-400 underline">
           {showCount ? summaryCount : (
             <Image

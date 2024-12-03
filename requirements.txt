@@ -1,0 +1,6 @@
+next
+react
+tailwindCSS
+postcss
+autoprefixer
+wheel
