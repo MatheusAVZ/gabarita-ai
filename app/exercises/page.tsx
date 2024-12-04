@@ -9,73 +9,23 @@ import { api } from "../lib/axios";
 
 import Form from "../components/forms/Form";
 import Logo from "../components/title/Logo";
-import { revalidateTag } from "next/cache";
+import { Exercises } from "../components/exercises/exercises";
 
 interface formDataProps {
-  educationLevel: string;
-  subject: string;
+  education: string;
+  discipline: string;
   content: string;
 }
 
 const ExercisesPage = () => {
-  const [exerciseCount, setExerciseCount] = useState(0);
-  const [showCount, setShowCount] = useState(false);
-  const [exercises, setExercises] = useState('');
+  const [data, setData] = useState({questions: [], title: ''});
   const [isGenerated, setIsGenerated] = useState(false);
-  const [data, setData] = useState<formDataProps | undefined>();
 
-  const router = useRouter();
+  const handleFormSubmit = async (params: formDataProps) => {
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/analytics/total`, {
-          next: {
-            tags: ['exerciseCount'],
-          }
-        });
-        const data = await response.json();
-        const count = parseInt(data.totalUsage.exerciseCount) || 0;
-        setExerciseCount(count);
-        setShowCount(true);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchData();
-  }, [router]);
-
-  const handleFormSubmit = async ({ educationLevel, subject, content }: formDataProps) => {
-    const prompt = `
-      Crie uma lista de exercícios de ${subject} para um estudante de ${educationLevel}. 
-
-      Os exercícios devem abranger os seguintes tópicos:
-
-      ${content}
-
-      Inclua instruções claras para cada exercício e, se aplicável, sugira links de referência para ajudar na resolução.
-
-      O Título deve ser "Lista de exercícios de ${subject} - ${educationLevel}".
-
-      A lista deve ser numerada.
-    `;
-    setData({
-      educationLevel,
-      subject,
-      content,
-    });
-
-    api.post('/gemini/', { prompt: prompt }).then(response => {
-      setExercises(response.data.generatedContent);
+    api.post('/create_questions', params).then(response => {
+      setData({questions: response.data.questoes, title: response.data.titulo});
       setIsGenerated(true);
-      api.post('/analytics/', { 
-        type: 'exerciseCount', 
-        count: 1, 
-        tokenInfo: response.data.tokenInfo
-      });
-      setExerciseCount(prevExerciseCount => prevExerciseCount + 1);
-      revalidateTag('exerciseCount');
     }).catch((error: Error) => {
       console.error(error);
     });
@@ -89,7 +39,7 @@ const ExercisesPage = () => {
           {
             isGenerated ? (
               <div className="py-6 px-8 w-auto bg-white rounded-lg border-1 border-gray-200 shadow-lg">
-                <Markdown className="prose lg:prose-lg" children={exercises} />
+                <Exercises data={data} />
                 <div className="mt-2 pt-6 border-t-2 border-gray-300 flex flex-col items-start">
                   <button
                     onClick={() => setIsGenerated(false)}
@@ -100,7 +50,6 @@ const ExercisesPage = () => {
                   <Link href={"/"} className="text-blue-500 hover:text-blue-700 hover:underline">
                     Voltar ao início
                   </Link>
-                
                 </div>
               </div>
             ) : (
@@ -110,9 +59,9 @@ const ExercisesPage = () => {
         </div>
       </main>
       <div className="flex justify-center text-center text-white py-4">
-        O Gabarita A.I. já gerou 
-        <div className="mx-1.5 text-yellow-400 underline">
-          {showCount ? exerciseCount : (
+        O Gabarita A.I. gerou
+        <div className={`mx-1.5 ${isGenerated ? '' : 'text-yellow-400 underline'}`}>
+          {isGenerated ? 'a' : (
             <Image
               src={"/dot_loading.svg"}
               alt="Loading"
@@ -121,8 +70,8 @@ const ExercisesPage = () => {
               className="mt-1.5"
             />
           )}
-        </div> 
-        listas de exercícios!
+        </div>
+        lista de exercício!
       </div>
     </>
   );

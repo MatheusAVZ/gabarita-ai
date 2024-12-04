@@ -3,15 +3,15 @@ import Image from "next/image";
 
 interface FormProps {
   name: string;
-  onSubmit: (formData: { educationLevel: string; subject: string; content: string }) => void;
+  onSubmit: (formData: { education: string; discipline: string; content: string }) => void;
 }
 
 const Form = ({ name, onSubmit }: FormProps) => {
-  const [educationLevel, setEducationLevel] = useState('Ensino Fundamental');
-  const [subject, setSubject] = useState('');
+  const [education, setEducation] = useState('Ensino Fundamental');
+  const [discipline, setDiscipline] = useState('');
   const [content, setContent] = useState('');
 
-  const [subjectError, setSubjectError] = useState(false);
+  const [disciplineError, setDisciplineError] = useState(false);
   const [contentError, setContentError] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -19,15 +19,15 @@ const Form = ({ name, onSubmit }: FormProps) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const formData: { educationLevel: string; subject: string; content: string } = {
-      educationLevel,
-      subject,
+    const formData: { education: string; discipline: string; content: string } = {
+      education,
+      discipline,
       content,
     };
 
     let formIsValid = true;
-    if (subject.trim() === '') {
-      setSubjectError(true);
+    if (discipline.trim() === '') {
+      setDisciplineError(true);
       formIsValid = false;
     }
     if (content.trim() === '') {
@@ -50,13 +50,13 @@ const Form = ({ name, onSubmit }: FormProps) => {
       <div className="flex flex-col bg-white w-full md:w-2/3 lg:w-1/2 xl:w-max py-6 px-8 rounded-lg gap-4">
         <div className="flex flex-col lg:flex-row gap-8 mb-4 justify-between">
           <div>
-            <label htmlFor="educationLevel" className="block mb-2 font-medium text-gray-900">Educação</label>
-            <select 
-              id="educationLevel"
-              name="educationLevel" 
+            <label htmlFor="education" className="block mb-2 font-medium text-gray-900">Educação</label>
+            <select
+              id="education"
+              name="education"
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-              value={educationLevel}
-              onChange={(event) => setEducationLevel(event.target.value)}
+              value={education}
+              onChange={(event) => setEducation(event.target.value)}
             >
               <option value="Ensino Fundamental">Ensino Fundamental</option>
               <option value="Ensino Médio">Ensino Médio</option>
@@ -64,21 +64,21 @@ const Form = ({ name, onSubmit }: FormProps) => {
             </select>
           </div>
           <div>
-            <label htmlFor="subject" className="block mb-2 font-medium text-gray-900">Matéria</label>
+            <label htmlFor="discipline" className="block mb-2 font-medium text-gray-900">Matéria</label>
             <input
-              id="subject"
-              name="subject" 
+              id="discipline"
+              name="discipline" 
               className={`block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border ${
-                subjectError ? 'border-red-500' : 'border-gray-300'
+                disciplineError ? 'border-red-500' : 'border-gray-300'
               } focus:ring-blue-500 focus:border-blue-500`}
-              value={subject}
+              value={discipline}
               onChange={(event) => {
-                setSubject(event.target.value);
-                setSubjectError(false);
+                setDiscipline(event.target.value);
+                setDisciplineError(false);
               }}
               maxLength={30}
             />
-            {subjectError && <p className="mt-1 text-red-500 text-sm">Campo obrigatório</p>}
+            {disciplineError && <p className="mt-1 text-red-500 text-sm">Campo obrigatório</p>}
           </div>
         </div>
         <div className="w-full">
