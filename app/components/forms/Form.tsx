@@ -103,7 +103,7 @@ const Form = ({ name, onSubmit }: FormProps) => {
 
       <button
         type="submit" 
-        className={`${isSubmitting ? "cursor-progress" : "cursor-pointer"} bg-gradient-to-tr from-pink-500 to-yellow-500 hover:from-pink-600 hover:to-yellow-600 px-5 py-3 text-white font-semibold rounded-lg`}
+        className={`${isSubmitting ? "cursor-progress" : "cursor-pointer"} bg-gradient-to-tr from-[#39B7A8] to-[#2A8278] hover:from-[#2A8278] hover:to-[#1D5B54] px-5 py-3 text-white font-semibold rounded-lg`}
         disabled={isSubmitting}
       >
         {
