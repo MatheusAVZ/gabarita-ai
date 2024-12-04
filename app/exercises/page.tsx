@@ -9,7 +9,7 @@ import { api } from "../lib/axios";
 
 import Form from "../components/forms/Form";
 import Logo from "../components/title/Logo";
-import { Exercises } from "../components/exercises/exercises";
+import { Exercises } from "../components/forms/exercises";
 
 interface formDataProps {
   education: string;
