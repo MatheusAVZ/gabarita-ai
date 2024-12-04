@@ -18,16 +18,19 @@ interface formDataProps {
 }
 
 const ExercisesPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({questions: [], title: ''});
   const [isGenerated, setIsGenerated] = useState(false);
 
   const handleFormSubmit = async (params: formDataProps) => {
-
+    setIsLoading(true);
     api.post('/create_questions', params).then(response => {
       setData({questions: response.data.questoes, title: response.data.titulo});
       setIsGenerated(true);
     }).catch((error: Error) => {
       console.error(error);
+    }).finally(() => {
+      setIsLoading(false);
     });
   };
 
@@ -58,21 +61,23 @@ const ExercisesPage = () => {
           }
         </div>
       </main>
-      <div className="flex justify-center text-center text-white py-4">
-        O Gabarita A.I. gerou
-        <div className={`mx-1.5 ${isGenerated ? '' : 'text-yellow-400 underline'}`}>
-          {isGenerated ? 'a' : (
-            <Image
-              src={"/dot_loading.svg"}
-              alt="Loading"
-              width={20}
-              height={20}
-              className="mt-1.5"
-            />
-          )}
+      {isLoading || isGenerated && (
+        <div className="flex justify-center text-center text-white py-8">
+          O Gabarita A.I. gerou
+          <div className={`mx-1.5 ${isGenerated ? '' : 'text-yellow-400 underline'}`}>
+            {isGenerated ? 'o' : (
+              <Image
+                src={"/dot_loading.svg"}
+                alt="Loading"
+                width={20}
+                height={20}
+                className="mt-1.5"
+              />
+            )}
+          </div>
+          resumo!
         </div>
-        lista de exercício!
-      </div>
+      )}
     </>
   );
 }

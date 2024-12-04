@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Radio } from "../radio/radio"
 
 export type question = {
   alternativas: {A: string, B: string, C: string, D: string}
@@ -48,8 +49,20 @@ export function Exercises({data: {questions, title}}: exercisesProps) {
 
                   return (
                     <li key={alternativeIndex} className={`${showAnswers ? getBgColor() : ''} flex rounded-md gap-1 px-2`}>
-                      <input disabled={showAnswers} type="radio" name={`question-${question.numero}`} onChange={(e)=> {setAnswers([...answers, e.currentTarget.value])}} value={key} />
-                      <label>{Object.values(question.alternativas)[alternativeIndex]}</label>
+                      <input
+                        disabled={showAnswers}
+                        type="radio"
+                        name={`question-${question.numero}`}
+                        onChange={(e)=> {
+                          const newAnswers = answers
+                          newAnswers[questionIndex] = e.currentTarget.value
+
+                          setAnswers(newAnswers)
+                        }}
+                        value={key}
+                        id={questionIndex + key}
+                      />
+                      <label htmlFor={questionIndex + key}>{Object.values(question.alternativas)[alternativeIndex]}</label>
                     </li>
                   )
                 })}
@@ -57,7 +70,7 @@ export function Exercises({data: {questions, title}}: exercisesProps) {
             </div>
           )
         })}
-        <button hidden={showAnswers} type="submit">Enviar</button>
+        <button hidden={showAnswers} className="bg-green-400 py-2 px-4 font-bold text-lg w-fit self-center rounded-lg" type="submit">Enviar</button>
 
       </form>
     </div>

@@ -19,16 +19,19 @@ interface formDataProps {
 const emptyData = {titulo: '', definicao: '', exemplos: [], aplicacoes: '', teoria_e_pratica: '', exercicios: [], dicas_estudo: [], referencias: []};
 
 const SummaryPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isGenerated, setIsGenerated] = useState(false);
   const [data, setData] = useState(emptyData);
 
   const handleFormSubmit = (params: formDataProps) => {
-
+    setIsLoading(true);
     api.post('/generate_summary', params).then(response => {
       setData(response.data)
       setIsGenerated(true);
     }).catch((error: Error) => {
       console.error(error);
+    }).finally(() => {
+      setIsLoading(false);
     });
   };
 
@@ -59,21 +62,24 @@ const SummaryPage = () => {
           }
         </div>
       </main>
-      <div className="flex justify-center text-center text-white py-8">
-        O Gabarita A.I. gerou
-        <div className={`mx-1.5 ${isGenerated ? '' : 'text-yellow-400 underline'}`}>
-          {isGenerated ? 'o' : (
-            <Image
-              src={"/dot_loading.svg"}
-              alt="Loading"
-              width={20}
-              height={20}
-              className="mt-1.5"
-            />
-          )}
+
+      {isLoading || isGenerated && (
+        <div className="flex justify-center text-center text-white py-8">
+          O Gabarita A.I. gerou
+          <div className={`mx-1.5 ${isGenerated ? '' : 'text-yellow-400 underline'}`}>
+            {isGenerated ? 'o' : (
+              <Image
+                src={"/dot_loading.svg"}
+                alt="Loading"
+                width={20}
+                height={20}
+                className="mt-1.5"
+              />
+            )}
+          </div>
+          resumo!
         </div>
-        resumo!
-      </div>
+      )}
     </>
   );
 }
