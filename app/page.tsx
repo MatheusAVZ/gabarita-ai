@@ -11,7 +11,7 @@ export default function Home() {
           <Image 
             src={logoImg}
             alt="Gabarita_A.I"
-            width={120}
+            width={140}
             className="mr-4"
             priority
           />

@@ -67,7 +67,7 @@ const Form = ({ name, onSubmit }: FormProps) => {
             <label htmlFor="discipline" className="block mb-2 font-medium text-gray-900">Matéria</label>
             <input
               id="discipline"
-              name="discipline" 
+              name="discipline"
               className={`block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border ${
                 disciplineError ? 'border-red-500' : 'border-gray-300'
               } focus:ring-blue-500 focus:border-blue-500`}
@@ -83,10 +83,10 @@ const Form = ({ name, onSubmit }: FormProps) => {
         </div>
         <div className="w-full">
           <label htmlFor="content" className="block mb-2 font-medium text-gray-900">Conteúdo</label>
-          <textarea 
+          <textarea
             id="content"
             name="content"
-            rows={3} 
+            rows={3}
             className={`block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border ${
               contentError ? 'border-red-500' : 'border-gray-300'
             } focus:ring-blue-500 focus:border-blue-500`}
@@ -102,7 +102,7 @@ const Form = ({ name, onSubmit }: FormProps) => {
       </div>
 
       <button
-        type="submit" 
+        type="submit"
         className={`${isSubmitting ? "cursor-progress" : "cursor-pointer"} bg-gradient-to-tr from-[#39B7A8] to-[#2A8278] hover:from-[#2A8278] hover:to-[#1D5B54] px-5 py-3 text-white font-semibold rounded-lg`}
         disabled={isSubmitting}
       >
@@ -114,7 +114,7 @@ const Form = ({ name, onSubmit }: FormProps) => {
                 alt="Loading spin"
                 width={0}
                 height={0}
-                className="w-4 h-auto animate-spin" 
+                className="w-4 h-auto animate-spin"
               />
               Gerando...
             </div>

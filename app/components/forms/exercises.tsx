@@ -70,7 +70,7 @@ export function Exercises({data: {questions, title}}: exercisesProps) {
             </div>
           )
         })}
-        <button hidden={showAnswers} className="bg-green-400 py-2 px-4 font-bold text-lg w-fit self-center rounded-lg" type="submit">Enviar</button>
+        <button hidden={showAnswers} className="bg-gradient-to-r from-[#39B7A8] to-[#4CD1C1] py-2 px-4 font-bold text-lg w-fit self-center rounded-lg" type="submit">Enviar</button>
 
       </form>
     </div>

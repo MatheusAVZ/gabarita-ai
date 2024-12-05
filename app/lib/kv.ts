@@ -30,6 +30,6 @@ export async function getOrInitializeDailyUsage(today: string): Promise<DailyUsa
     await dailyUsages.hset(`daily_usage:${today}`, { ...defaultUsage });
     return defaultUsage;
   }
-  
-  return usage;  
+
+  return usage;
 }
