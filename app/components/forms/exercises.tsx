@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { Radio } from "../radio/radio"
 
 export type question = {
   alternativas: {A: string, B: string, C: string, D: string}
