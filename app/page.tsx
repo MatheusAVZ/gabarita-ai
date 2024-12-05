@@ -7,15 +7,15 @@ export default function Home() {
   return (
     <main className="px-8 p-16 lg:p-24 bg-gradient-to-r from-[#2675B3] to-[#060E3D] min-h-screen">
       <div className="flex justify-center">
-        <div className="flex items-center mb-8">
+        <div className="flex flex-col md:flex-row items-center mb-8">
           <Image 
             src={logoImg}
             alt="Gabarita_A.I"
-            width={140}
-            className="mr-4"
+            width={100}
+            className="mr-4 md:w-36"
             priority
           />
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white">
+          <h1 className="text-5xl text-center md:text-7xl lg:text-8xl font-bold text-white">
             Gabarita A.I
           </h1>
         </div>

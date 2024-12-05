@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Markdown from "react-markdown";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { api } from "../lib/axios";
@@ -39,6 +37,10 @@ const ExercisesPage = () => {
       <main className="p-4 md:p-8 lg:py-12 lg:px-24">
         <div className="flex flex-col items-center gap-8">
           <Logo />
+          <button className="flex flex-row gap-2 items-center self-start text-white" onClick={() => window.history.back()}>
+            <Image alt="backs" src={'back.svg'} width={20} height={20}/>
+            voltar
+          </button>
           {
             isGenerated ? (
               <div className="py-6 px-8 w-auto bg-white rounded-lg border-1 border-gray-200 shadow-lg">

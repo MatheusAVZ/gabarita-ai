@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.headers.common['Cache-Control'] = 'no-cache';
 
 export const api = axios.create({
-  baseURL: 'http://127.0.0.1:8000',
+  baseURL: 'https://0ac7-189-43-152-41.ngrok-free.app',
   headers: {
     'Content-Type': 'application/json',
   }
